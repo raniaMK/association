@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\GenerateQrCodeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('personne', \App\Http\Controllers\PersonneController::class);
     Route::resource('marchand', \App\Http\Controllers\MarchandController::class);
-    Route::resource('coupon', \App\Http\Controllers\CouponController::class);
+   // Route::resource('coupons', \App\Http\Controllers\CouponController::class);
   //  Route::get('category/{slug}/films', [FilmController::class, 'index'])->name('films.category');
 
 
@@ -47,6 +48,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/profile', 'App\Http\Controllers\UserController@postProfile')->name('user.postProfile');
     Route::post('/coupons', 'App\Http\Controllers\CouponController@store')->name('coupon.store');
     Route::get('/coupons', 'App\Http\Controllers\CouponController@index')->name('coupon.index');
+    Route::get('/coupons/create', 'App\Http\Controllers\CouponController@show')->name('coupon.create');
+    Route::get('/coupons/show/{id}', 'App\Http\Controllers\CouponController@show')->name('coupon.show');
+
    // Route::get('personne/{id}/coupons', [CouponController::class, 'index'])->name('coupons.personne');
+
+   //codeqr
+/*Route::get('simple-qr-code', [GenerateQrCodeController::class, 'simpleQrCode']);
+Route::get('color-qr-code', [GenerateQrCodeController::class, 'colorQrCode']);
+Route::get('image-qr-code', [GenerateQrCodeController::class, 'imageQrCode']);*/
 
 });

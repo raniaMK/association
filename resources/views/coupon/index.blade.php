@@ -44,27 +44,29 @@
                                         <th>Montant</th>
                                         <th>Validité</th>
                                         <th>Famille</th>
-                                        <th width="280px">Action</th>
+                                        <th >Action</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
+                                
                                     @foreach ($coupons as $coupon)
                                     <tr>
                                         <td>{{$coupon->id }}</td>
                                         <td>{{$coupon->numero}}</td>
                                         <td>{{$coupon->montant}}</td>
                                         <td>{{$coupon->validité}}</td>
-                                        <td>{{$coupon->personne_id}}</td>
+                                        <td>{{$coupon->personne->nom ?? ''}}</td>
                                         <td>
                                         <form action="#" method="POST">
-                                                <a class="btn btn-info" href="#">Show</a>
+                                                <a class="btn btn-info" href="{{ route('coupon.show',$coupon->id) }}">Show</a>
                                                 <a class="btn btn-primary" href="#">Edit</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Delete</button>
 
-                                            </form>
-                                        </td>
+                                        </form>
+                                    </td>
                                     </tr>
                                     @endforeach
 

@@ -40,33 +40,32 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputName1">No</label>
-                            <input type="text" name="no" class="form-control" placeholder="Numero">
+                            <label for="exampleInputName1">No*</label>
+                            <input type="text" name="numero" class="form-control" placeholder="Numero">
 
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName1">Montant</label>
+                            <label for="exampleInputName1">Montant*</label>
                             <input type="text" name="montant" class="form-control" placeholder="Montant">
 
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputName1">Validité</label>
-                            <input type="text" name="Validité" class="form-control" placeholder="JJ/MM/AAAA">
+                            <label for="exampleInputName1">Validité*</label>
+                            <input type="text" name="validité" class="form-control" placeholder="JJ/MM/AAAA">
 
                         </div>
 
 
-                        <div class="field">
-                            <label class="label">Familles</label>
-                            <div class="select">
-                                <select name="personne_id">
-                                    @foreach($personnes as $personne)
-                                    <option value="{{ $personne->id }}">{{ $personne->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+    
+                        <div class="form-group">
+                                            <label  for="Personne">Familles*</label>
+                                            <select class="form-control form-control-md" id="personne_id" name="personne_id">
+                                                @php foreach($catlist->all() as $cat) {
+                                                echo "<option value=".$cat->id." >".$cat->nom." </option>"; $select_attribute=''; } @endphp
+                                            </select>
+                                        </div>
+
                     </div>
                     <!-- /.card-body -->
 

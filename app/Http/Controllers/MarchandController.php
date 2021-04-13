@@ -61,7 +61,7 @@ class MarchandController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Personne $marchand
+     * @param \App\Marchand $marchand
      * @return \Illuminate\Http\Response
      */
     public function show(Marchand $marchand)
@@ -72,7 +72,7 @@ class MarchandController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Personne $marchand
+     * @param \App\Marchand $marchand
      * @return \Illuminate\Http\Response
      */
     public function edit(Marchand $marchand)

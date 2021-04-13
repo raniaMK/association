@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use Validator,Redirect,Response;
 
 class CouponController extends Controller
 {
@@ -22,23 +23,28 @@ class CouponController extends Controller
      */
     public function index(Request $request)
     {
+        $result = Coupon::all();
+//dd($result);
+    	return view('coupon.index')
+    		->with('coupons', $result);
+        
        /* $coupons = Coupon::latest()->paginate(5);
         return view('coupon.index', compact('coupons'))
             ->with('i', ($request->input('page', 1) - 1) * 5);*/
           /*  $data = Coupon::orderBy('id','DESC')->paginate(5);
         return view('coupon.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);*/
-            return view('coupon.index', ['coupons' => Coupon::all()]);
+          //  return view('coupon.index', ['coupons' => Coupon::all()]);
        /* $marchands = Coupon::latest()->paginate(5);
         return view('coupon.index', compact('coupons'))
             ->with('i', ($request->input('page', 1) - 1) * 5);*/
     }
  /*   public function index(Request $request)
 {
-    $query = $CIN? Personne::whereCIN($CIN)->firstOrFail()->coupons() : Coupon::query();
-    //$coupons = $query->withTrashed()->oldest('numero')->paginate(5);
+    $query = $id? Personne::whereId($id)->firstOrFail()->coupons() : Coupon::query();
+    $coupons = $query->withTrashed()->oldest('numero')->paginate(5);
     $personnes = Personne::all();
-    return view('index', compact('coupons', 'personnes', 'CIN'));
+    return view('index', compact('coupons', 'personnes', 'nom'));
 }*/
 
  /**
@@ -48,7 +54,10 @@ class CouponController extends Controller
      */
     public function create()
     {
-        return view('coupon.create');
+        $result = Personne::all();
+        return view('coupon.create')
+            ->with('catlist', $result);
+        //return view('');
     }
 
 
@@ -63,25 +72,47 @@ class CouponController extends Controller
       $this->validate($request,[
         'numero'=>'required',
         'montant'=>'required',
-        'validité'=>'required'
+        'validité'=>'required',
+       'personne_id'=>'required'
     ]);
-   
-    Coupon::create($request->all());
-    $coupons=Coupon::all();
-    return redirect()->route('coupon.index')->with('info', 'Le film a bien été créé');
+  
+    //Coupon::create($request->all());
+   // $coupons=Coupon::all();
       //  Coupon::create($couponRequest->all());
        // return redirect()->route('coupon.index')->with('info', 'Le film a bien été créé');
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Personne $personne
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Personne $personne)
+       $input = $request->all();
+     // dd( $input);
+       Coupon::create($input);
+      
+       //var_dump( $input);
+       return redirect()->route('coupon.index')->with('info', 'Le coupon a bien été créé');
+
+
+       }
+    
+       
+  /*  public function show(Coupon $coupon)
     {
-        return view('personne.show', compact('personne'));
-    }
+        return view('coupon.show', compact('coupon','personne'));
+    }*/
+    /*public function show(Coupon $coupon)
+    {
+        dd( $coupon);
+
+        $personne = $coupon->personne;
+        // dd( $personne); 
+        return view('coupon.show', compact('coupon', 'personne'));
+    }*/
+      public function show($id)
+    {
+        $coupon = Coupon::where('id', $id)->firstOrFail();
+        $personne = $coupon->personne;
+       // dd( $personne); 
+        //return view('coupon.show')->with('coupon', $coupon);
+        return view('coupon.show', compact('coupon', 'personne'));
+    
+    } 
+    
 
     /**
      * Show the form for editing the specified resource.
